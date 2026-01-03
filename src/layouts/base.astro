@@ -1,0 +1,24 @@
+---
+// this is the layout that defines the inital layout of each page on the website
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title}</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/now">Now</a>
+        </nav>
+    </header>
+    <main>
+        <slot /> <!-- this is where the content gets inserted -->
+    </main>
+</body>
+</html>
