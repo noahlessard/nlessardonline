@@ -2,6 +2,8 @@
 layout: ../layouts/base.astro
 title: About Me
 ---
+import Projectcard from '../components/projectcard.astro';
+
 
 # Title
 
@@ -10,3 +12,8 @@ Look, its markdown! Its **super easy** to write!
 - Here is a list
 - More list
 - And end of list!
+
+<Projectcard 
+    title="Me" 
+    description="hello"
+/>
