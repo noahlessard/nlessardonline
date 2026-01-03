@@ -1,0 +1,15 @@
+---
+const { href, ...props } = Astro.props;
+const isExternal = href.startsWith('http');
+---
+<a href={href} class="link" target={isExternal ? '_blank' : undefined} data-astro-prefetch={isExternal ? "hover" : "viewport"} rel={isExternal ? 'noopener noreferrer' : undefined} {...props}><slot /></a><style>
+  .link,
+  .link:visited {
+    color: #0066cc;
+    text-decoration: none;
+  }
+  
+  .link:hover {
+    text-decoration: underline;
+  }
+</style>

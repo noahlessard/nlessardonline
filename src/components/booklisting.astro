@@ -1,22 +1,27 @@
 ---
-import type { ImageFunction } from 'astro:content';
-
+import { Image } from 'astro:assets';
 interface Props {
     title: string;
-    description: string;
-    rating: string;
-    imageName: string;
+    rating?: string;
+    image: ImageMetadata;
+    description?: string;
 }
-
-const { title, description, rating, imageName } = Astro.props;
+const { title, rating, image, description } = Astro.props;
 ---
 
 
 <div class="book-listing">
-    <img src={`/${imageName}`} alt={title} class="book-cover" />
-    <div class="book-info">
+        <Image 
+            src={image}
+            alt={title} 
+            class="book-cover"
+            width={800}
+        />
+        <div class="book-info">
         <h3>{title}</h3>
-        <p class="description">{description}</p>
+        <p class="description">
+            {description ? description : <slot />}
+        </p>
         <p class="rating">{rating}</p>
     </div>
 </div>
@@ -35,7 +40,7 @@ const { title, description, rating, imageName } = Astro.props;
         height: auto;
         object-fit: cover;
         border-radius: 4px;
-        flex-shrink: 0; /* prevents image from shrinking */
+        flex-shrink: 0; 
     }
     
     .book-info {
