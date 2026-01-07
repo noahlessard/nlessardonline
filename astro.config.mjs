@@ -7,5 +7,7 @@ import mdx from '@astrojs/mdx';
 export default defineConfig({
   prefetch: true,
   integrations: [mdx()],
-  build: {concurrency: 1}
+  build: {concurrency: 1},
+  outDir: './dist',
+  publicDir: './public'
 });
