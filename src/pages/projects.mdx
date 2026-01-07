@@ -4,6 +4,9 @@ title: Projects
 ---
 import ProjectListing from '../components/projectlisting.astro';
 import rp2040listener from '../assets/RP2040Listener.PNG';
+import databender from '../assets/databender.png';
+import bucket from '../assets/bucket.jpg';
+import ir from '../assets/ir.jpg';
 
 # Projects
 
@@ -11,7 +14,28 @@ This page is a bit of a mix between a blog and a projects list. The entries aren
 
 <ProjectListing
     title="RP2040 Keystroke Sniffer"
-    description="A cybersecurity club project to keep me happy working on PCB and embedded software over winter break."
+    description="Combining hardware and software design to make a cybersecurity pentesting tool."
     image={rp2040listener}
     link="/projects/2040Listener"
+/>
+
+<ProjectListing
+    title="Databender & Odachi's Paradigm"
+    description="My take on building new 3D UI systems to let people create art in virtual reality."
+    image={databender}
+    link="/projects/databender"
+/>
+
+<ProjectListing
+    title="Why I like Building Static Websites"
+    description="Thoughts and lessons I learned from building a few static websites with different technologies."
+    image={bucket}
+    link="/projects/databender"
+/>
+
+<ProjectListing
+    title="Transmitting Data over Light"
+    description="Building a custom device to demonstrate low-cost optical data transmission, and its pros and cons."
+    image={ir}
+    link="/projects/IRtransmission"
 />
