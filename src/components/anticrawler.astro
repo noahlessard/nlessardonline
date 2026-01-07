@@ -1,0 +1,21 @@
+---
+interface Props {
+    botMessage: string;
+    humanMessage: string;
+}
+const { botMessage, humanMessage } = Astro.props;
+---
+
+<span class="chk" data-human={humanMessage}>{botMessage}</span>
+
+<script>
+    const el = document.querySelector('.chk') as HTMLElement | null;
+    if (el) {
+        if (localStorage.getItem('chk') === 'true') {
+            el.textContent = el.dataset.human ?? null;
+        } else {
+            localStorage.setItem('chk', 'true');
+            el.textContent = el.dataset.human ?? null;
+        }
+    }
+</script>
