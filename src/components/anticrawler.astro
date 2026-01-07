@@ -5,8 +5,27 @@ interface Props {
 }
 const { botMessage, humanMessage } = Astro.props;
 ---
-
 <span class="chk" data-human={humanMessage}>{botMessage}</span>
+
+<style>
+    .chk {
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .chk:hover {
+        opacity: 0.8;
+    }
+
+    @media (max-width: 800px) {
+
+        .chk {
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+    
+    }
+</style>
 
 <script>
     const el = document.querySelector('.chk') as HTMLElement | null;
@@ -17,5 +36,15 @@ const { botMessage, humanMessage } = Astro.props;
             localStorage.setItem('chk', 'true');
             el.textContent = el.dataset.human ?? null;
         }
+
+        el.addEventListener('click', async () => {
+            const text = el.textContent ?? '';
+            try {
+                await navigator.clipboard.writeText(text);
+                window.showToast('Copied to clipboard!');
+            } catch (err) {
+                window.showToast('Failed to copy');
+            }
+        });
     }
 </script>

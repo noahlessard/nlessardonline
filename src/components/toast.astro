@@ -1,0 +1,69 @@
+---
+// This component should be included once in your layout
+---
+<div id="toast-container"></div>
+
+<style>
+    #toast-container {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 1000;
+        pointer-events: none;
+    }
+
+    :global(.toast) {
+        background: #000;
+        color: #fff;
+        padding: 14px 20px;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 500;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        opacity: 0;
+        transform: translateX(400px);
+        transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        pointer-events: auto;
+        min-width: 200px;
+    }
+
+    :global(.toast.show) {
+        opacity: 1;
+        transform: translateX(0);
+    }
+</style>
+
+<script>
+    // Global function to show toasts
+    window.showToast = (message: string, duration: number = 2000) => {
+        const container = document.getElementById('toast-container');
+        if (!container) return;
+        if (container.querySelector('.toast')) return;
+
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.textContent = message;
+        container.appendChild(toast);
+
+        // Trigger animation
+        requestAnimationFrame(() => {
+            toast.classList.add('show');
+        });
+
+        // Remove after duration
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 300);
+        }, duration);
+    };
+
+    // TypeScript declaration
+    declare global {
+        interface Window {
+            showToast: (message: string, duration?: number) => void;
+        }
+    }
+</script>

@@ -2,6 +2,7 @@
 // this is the layout that defines the inital layout of each page on the website
 const { title } = Astro.props;
 import Link from '../components/link.astro'
+import Toast from '../components/toast.astro';
 ---
 
 <!DOCTYPE html>
@@ -22,6 +23,7 @@ import Link from '../components/link.astro'
         </nav>
     </header>
     <main>
+        <Toast />
         <slot /> <!-- this is where the content gets inserted -->
     </main>
 </body>
