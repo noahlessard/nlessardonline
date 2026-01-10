@@ -2,12 +2,16 @@
 layout: ../../layouts/base.astro
 title: Databender
 ---
+import { Image } from 'astro:assets';
+import Link from '../../components/link.astro';
+import databenderpov1 from '../../assets/databenderPOV1.jpg';
 
 
 # Databender & Odachi's Paradigm
 
-Look, its markdown! Its **super easy** to write!
+One thing that bugged me about VR is that there seemed to be a lack of tools that use the technology. To me, being able to "place" a user in a 3D environment should introduce some really interesting user interaction methods. So instead of waiting for someone else to do it, I decided to try it myself by starting OdachiVR. While Odachi publishes multiple tools, the best and most complex example is Databender, which is a VR program that lets you edit images by using 3D interactions. For example, in this image I am moving spheres that represent posterized color groups, with radius corresponding to percentage of the image. Combining the spheres would combine the color groups, increasing the radius and limiting the color space further. This is just one example of the intuitive but complex edits that can come from these kind of user interactions.
 
-- Here is a list
-- More list
-- And end of list!
+<br></br>
+<Image src={databenderpov1} alt="Databender Pov Image" width={600} class="centered-image" />
+<br></br>
+
