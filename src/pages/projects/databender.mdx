@@ -5,13 +5,35 @@ title: Databender
 import { Image } from 'astro:assets';
 import Link from '../../components/link.astro';
 import databenderpov1 from '../../assets/databenderPOV1.jpg';
+import javaclasswrapper from '../../assets/javaclasswrapper.JPG';
+import threads from '../../assets/threads.png';
 
-
-# Databender & Odachi's Paradigm
+# Databender & Building Big Programs
 
 One thing that bugged me about VR is that there seemed to be a lack of tools that use the technology. To me, being able to "place" a user in a 3D environment should introduce some really interesting user interaction methods. So instead of waiting for someone else to do it, I decided to try it myself by starting OdachiVR. While Odachi publishes multiple tools, the best and most complex example is Databender, which is a VR program that lets you edit images by using 3D interactions. For example, in this image I am moving spheres that represent posterized color groups, with radius corresponding to percentage of the image. Combining the spheres would combine the color groups, increasing the radius and limiting the color space further. This is just one example of the intuitive but complex edits that can come from these kind of user interactions.
 
 <br></br>
-<Image src={databenderpov1} alt="Databender Pov Image" width={600} class="centered-image" />
+<Image src={databenderpov1} alt="Databender Pov" width={600} class="centered-image" />
 <br></br>
 
+To get into technicals, this is all build on Godot, which is a free and open source game engine. While it has a good base set of features for VR, it also has a few great, community maintained libraries that help handle a lot of the common setup objects. Since you can find all of those on the Odachi <Link href="https://odachivr.art/blog">blog posts</Link>, I won't go into them here. This post is for more of the technical problems that I solved and things I learned while building this app.
+
+While there were many algorithmic problems that needed to be solved, especially around breaking images up into chunks and how to apply some of the effects to the underlying data, those really weren't the most interesting problems to me (and honestly, I probably didn't write the best solutions). No, instead lets discuss everything outside of the boring linear algebra and image code. 
+
+One problem that even the best algorithm couldn't solve is the problem of the app hanging whenever you loaded a big image from the disk. This happened because (atleast in Godot 4.5), the visual rendering thread is not separate from the rest of the game logic. This is especially bad for virtual reality apps, since even the smallest stutter can disorient the user. Solving this required adding concurrency to the app with multithreading. 
+
+<br></br>
+<Image src={threads} alt="Threads illustration" width={600} class="centered-image" />
+<br></br>
+
+Each time an image operation needed to happen, a worker thread could be dispatched, locking the appropriate image chunk resource while the user just saw a loading indicator, but critically still got new frames. When the thread hit it's callback, it could tell the game engine to re-render the image preview, and terminate. Of course, some code was also required to handle if a thread died and mismanaged data, otherwise the user would be waiting forever. This was done with some careful exception handling code inside of the threaded functions.
+
+However, another issue arose when trying to save images to the Android filesystem: Godot doesn't notify the Android media scanner when it saves an images, so although the actual file was there on the filesystem, the user couldn't see it in the gallery apps. After some research, I realized that fixing this typically required some Java code that could call the Android API in order to notify the media scanner. While the community of Godot had already built support for Kotlin plugins in Godot, they had also come up with an even better solution: JavaClassWrapper!
+
+<br></br>
+<Image src={javaclasswrapper} alt="javaclasswrapperImage" width={600} class="centered-image" />
+<br></br>
+
+Above is the actual code that I ended up writing to solve this issue, and it worked so well that it was actually accepted into the official tutorial for using JavaClassWrappers in Godot! You can pretty easily see what is happening with this feature: in Godot's pythonic interface, you are able to "wrap" the Java Native Interface and call functions just like you would in normal Java. This makes it totally easy to inform the media scanner of what happened. Wrapping this code up into a function, along with the normal way of saving images, solved this problem.
+
+That last point refers to the final major issue that I ran into when designing this app: the way that code was written.  
