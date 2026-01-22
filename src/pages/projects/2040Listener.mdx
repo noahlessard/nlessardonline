@@ -6,6 +6,7 @@ import { Image } from 'astro:assets';
 import Link from '../../components/link.astro';
 import nametwentyfourty from '../../assets/2040name.JPG';
 import listenerPCB from '../../assets/RP2040Listener.PNG';
+import assembledPCB from '../../assets/assembled.jpg';
 import PIO from '../../assets/piodiagram.JPG'
 import wearleveling from '../../assets/wearleveling.jpg';
 import ranchorelaxo from '../../assets/RanchoRelaxo.png';
@@ -15,7 +16,7 @@ import ranchorelaxo from '../../assets/RanchoRelaxo.png';
 After finishing my PCB design classes at UW-Madison, I wanted to keep doing PCB design on my own. It had also been a while since I did a cybersecurity project, so why not try and build a stealthy keylogger? These kinds of devices are built for a physical pentesting use case: an attacker would sneak this flash drive sized device behind a desktop PC, intercepting and logging USB signals sent between the keyboard and the PC. Then, the attack either picks up the keylogger at a later date, or uses some wireless scheme to exfiltrate the keystroke data. Assuming the attacker has physical access, this is a pretty effective strategy: no keylogging program is actually running on the computer, so most antivirus programs won't be able to see anything different than a USB keyboard plugging into the computer. There are certainly ways to counter against it, but first let's go over how it works.
 
 <br></br>
-<Image src={listenerPCB} alt="PCB Diagram" width={600} class="centered-image" />
+<Image src={assembledPCB} alt="PCB Assembled!" width={600} class="centered-image" />
 <br></br>
 
 I built this project around the RP2040, which is the microcontroller at the heart of the Raspberry Pi Pico, and I was quite impressed by it. 133 Mhz, dual core, 264kB SRAM and 16MB flash off chip, along with a bunch of other great stats (and all for $0.70 per chip). But most importantly for this project, a USB 1.1 controller, with host and device support, along with 8 PIO state machines. This allows the RP2040 to be very flexible with how it handles IO, and means that the chip can support both a USB host and device at the same time.
