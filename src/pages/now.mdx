@@ -5,9 +5,9 @@ title: Now
 import Link from '../components/link.astro';
 import { Image } from 'astro:assets';
 
-import beach from '../assets/IMG_3594.jpg';
-import pc from '../assets/IMG_3606.jpg';
-import ramen from '../assets/IMG_3640.jpg';
+import snow from '../assets/snowlake.jpg';
+import train from '../assets/traincam1.jpg';
+import microscope from '../assets/microscope.jpg';
 
 # What I am Doing Now
 
@@ -15,14 +15,26 @@ This is a <Link href="https://sive.rs/now2">now page</Link>, and its purpose is 
 
 ***
 
-## January, 2026
+## March, 2026
 
-This month, I am building this website, along the 2040Listener project. I've had the time to work on both these projects at the same time due to being on winter break and taking some time off work. It's fun to do PCB design and write C code.
+This is a bit of a combined update for February and March, since I was pretty busy for February getting back into the swing of school work as well as club activities.
+I enjoyed the winter in Madison, it's been a cold one this year and the lake froze very deep. The snow on top of it seems to have froze too, making some cool snow/ice drifts.
 
-Here is a picture of what I'm doing over the break, outside of projects: 
-
-<Image src={beach} alt="Beach" width={600} class="centered-image" />
 <br></br>
-<Image src={pc} alt="PC" width={600} class="centered-image" />
+<Image src={snow} alt="Snow" width={600} class="centered-image" />
 <br></br>
-<Image src={ramen} alt="Ramen" width={600} class="centered-image" />
+
+I also have been spending a lot of time in the <Link href="https://upl.cs.wisc.edu/">UPL</Link> this semester, which has been fun. They had a leftover raspberry Pi and TV, so I'm working on an ambient, 24/7, train multimedia experience.
+The text you see being drawn on screen is actually being done with a transparent <Link href="https://codeberg.org/dnkl/foot">Foot</Link> terminal profile and <Link href="https://notcurses.com/">notcurses</Link>, which is giving me a chance to practice my C++ and Linux skills.
+Future blog post coming soon about this project, probably.
+
+<br></br>
+<Image src={train} alt="PC" width={600} class="centered-image" />
+<br></br>
+
+Finally, I've been working on manufacturing the PCBs from the 2040 listener project. I got some parts wrong in the footprint importing in the KiCad design (plus some EMI weirdness),
+so I still need to order new PCBs before they are available for other people to get their hands on, but I'm getting pretty good at soldering the 2040s to my custom PCBS
+(or atleast, taking pictures of them through the analog microscopes).
+
+<br></br>
+<Image src={microscope} alt="Ramen" width={600} class="centered-image" />
