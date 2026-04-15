@@ -6,7 +6,7 @@ import Link from '../components/link.astro';
 import { Image } from 'astro:assets';
 
 import thunder from '../assets/thunder.jpg';
-import train from '../assets/traincam3.jpg';
+import train from '../assets/traincam2.jpg';
 import poke from '../assets/noivern.jpg';
 
 # What I am Doing Now
@@ -23,7 +23,7 @@ Spring break is over and the end of the year is closing in. I'm trying to balanc
 <Image src={thunder} alt="thunder" width={600} class="centered-image" />
 <br></br>
 
-The train cam projects continues to advance (like a train along rails perhaps?) mostly with a lot of performance improvements. The Raspberry Pi 3 cpu doesn't seem to have the guts to run the x11 window compositor that manages both a transparent foot terminal rendering TUI and the vlc train video. So, experiments are ongoing using mpv, which allows for a IPC method to just change the video frame in memory before it gets rendered. So far, they have been successful and much faster...
+The train cam project continues to advance (like a train along rails perhaps?) mostly with a lot of performance improvements. The Raspberry Pi 3 cpu didn't seem to have the guts to run the x11 window compositor managing both a transparent foot terminal rendering TUI and the vlc train video. So, experiments are ongoing using mpv, which allows for a IPC method to just change the video frame in memory before it gets rendered. So far, they have been successful and much faster...
 
 <br></br>
 <Image src={train} alt="PC" width={600} class="centered-image" />
