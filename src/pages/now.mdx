@@ -5,9 +5,9 @@ title: Now
 import Link from '../components/link.astro';
 import { Image } from 'astro:assets';
 
-import snow from '../assets/snowlake.jpg';
-import train from '../assets/traincam1.jpg';
-import microscope from '../assets/microscope.jpg';
+import thunder from '../assets/thunder.jpg';
+import train from '../assets/traincam3.jpg';
+import poke from '../assets/noivern.jpg';
 
 # What I am Doing Now
 
@@ -15,26 +15,23 @@ This is a <Link href="https://sive.rs/now2">now page</Link>, and its purpose is 
 
 ***
 
-## March, 2026
+## April, 2026
 
-This is a bit of a combined update for February and March, since I was pretty busy for February getting back into the swing of school work as well as club activities.
-I enjoyed the winter in Madison, it's been a cold one this year and the lake froze very deep. The snow on top of it seems to have froze too, making some cool snow/ice drifts.
+Spring break is over and the end of the year is closing in. I'm trying to balance finishing out schoolwork while still enjoying my time left in Madison! And enjoying all of the thunderstorms that have been foreshadowing the may flowers.
 
 <br></br>
-<Image src={snow} alt="Snow" width={600} class="centered-image" />
+<Image src={thunder} alt="thunder" width={600} class="centered-image" />
 <br></br>
 
-I also have been spending a lot of time in the <Link href="https://upl.cs.wisc.edu/">UPL</Link> this semester, which has been fun. They had a leftover raspberry Pi and TV, so I'm working on an ambient, 24/7, train multimedia experience.
-The text you see being drawn on screen is actually being done with a transparent <Link href="https://codeberg.org/dnkl/foot">Foot</Link> terminal profile and <Link href="https://notcurses.com/">notcurses</Link>, which is giving me a chance to practice my C++ and Linux skills.
-Future blog post coming soon about this project, probably.
+The train cam projects continues to advance (like a train along rails perhaps?) mostly with a lot of performance improvements. The Raspberry Pi 3 cpu doesn't seem to have the guts to run the x11 window compositor that manages both a transparent foot terminal rendering TUI and the vlc train video. So, experiments are ongoing using mpv, which allows for a IPC method to just change the video frame in memory before it gets rendered. So far, they have been successful and much faster...
 
 <br></br>
 <Image src={train} alt="PC" width={600} class="centered-image" />
 <br></br>
 
-Finally, I've been working on manufacturing the PCBs from the 2040 listener project. I got some parts wrong in the footprint importing in the KiCad design (plus some EMI weirdness),
-so I still need to order new PCBs before they are available for other people to get their hands on, but I'm getting pretty good at soldering the 2040s to my custom PCBS
-(or atleast, taking pictures of them through the analog microscopes).
+Also, shout out to Nick for letting me gamble in the upl and open both a Sprigatito and a Noivern (my favorite pokemon). BANG!!
 
 <br></br>
-<Image src={microscope} alt="Ramen" width={600} class="centered-image" />
+<Image src={poke} alt="poke" width={600} class="centered-image" />
+
+Finally, work is still ongoing on manufacturing the 2040 keyloggers. I've got all the PCBs and parts now, so just soldering is left!

@@ -19,7 +19,7 @@ Free-space optical data transmission is a super cool technology. Of course, opti
 
 This makes them ideal for high tech use cases, especially in space (this also removes the largest downside: there is less fog in space). Artemis II is using a optical system called <Link href="https://www.nasa.gov/goddard/esc/o2o/">O2O</Link>, that will transmit data at 260 Megabits per second __to the moon and back__! 
 
-Aerospace system are great, but what can be done at a hobby level, building everything from scratch yourself? Well, myself and 3 other computer engineer students decided to try and find out by selecting this topic as our capstone project for the Fall 2025 semester.
+Aerospace systems are great, but what can be done at a hobby level, building everything from scratch yourself? Well, myself and 3 other computer engineering students decided to try and find out by selecting this topic as our capstone project for the Fall 2025 semester.
 
 <br></br>
 <Image src={IRImage} alt="IR Intro" width={600} class="centered-image" />
@@ -46,7 +46,7 @@ So we need to make some kind of change in order for the beam to be interrupted, 
 Ok, so now we know how this device achieved its goals, what parts did we mess up on? The biggest thing was the data transmission speed and range. The TSOP38238 diode is limited to a carrier frequency of 38Khz, and a burst length of 10 cycles/burst, or 10 cycles/bit. This means that we could only achieve a UART transmission rate of 3600 baud, which is pretty slow. This doesn't really matter for the temperature data, but for voice it meant that we were limited to slow transmission speeds. We were able to get it down with some sample averaging and MSB compression, but we really should have chosen a different diode. In the future, a higher speed connection would need either a smarter modulation scheme, a receiver with a shorter minimum burst length (fewer cycles per bit), or a higher carrier frequency.
 
 <br></br>
-<Image src={IRbaud} alt="IR Buadrate Graph" width={600} class="centered-image" />
+<Image src={IRbaud} alt="IR Baudrate Graph" width={600} class="centered-image" />
 <br></br>
 
 This modulation scheme is something that I'm still learning about, but instead of using binary transmission, aka On-Off Keying (OOK), it seems to be much more efficient to transmit a modified waveform, then decode back into digital data, something like Frequency Shift Keying (FSK) or Pulse Amplitude Modulation (PAM). PAM, for example, would encode data into different levels of brightness, instead of just having every bit be ON/OFF. With 8 levels of brightness, you could extract 3 bits of information from just one 'pulse' of light, which would triple our transmission rate. Of course, this would introduce more complexity, needing to have more ADC processing logic as well as being less resistant to noise, but it would be faster.
