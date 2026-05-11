@@ -2,12 +2,12 @@
 layout: ../../layouts/base.astro
 title: UPL Train Cam
 ---
-
+import Link from '../../components/link.astro';
+import { Image } from 'astro:assets';
+import uplexample from '../../assets/traincam/nicostanding.JPG';
 
 # The train post will go here... soon...
 
-Look, it's markdown! It's **super easy** to write!
-
-- Here is a list
-- More list
-- And end of list!
+<br></br>
+<Image src={uplexample} alt="upl example" width={600} class="centered-image" />
+<br></br>
