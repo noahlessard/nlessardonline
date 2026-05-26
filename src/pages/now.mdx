@@ -3,11 +3,18 @@ layout: ../layouts/base.astro
 title: Now
 ---
 import Link from '../components/link.astro';
+import MultiImage from '../components/multiimage.astro';
 import { Image } from 'astro:assets';
 
-import thunder from '../assets/nowpage/thunder.jpg';
-import train from '../assets/nowpage/traincam2.jpg';
-import poke from '../assets/nowpage/noivern.jpg';
+
+import grad from '../assets/nowpage/grad.jpg';
+import keyforclub from '../assets/nowpage/2040forclub.jpg';
+import manufacturing from '../assets/nowpage/manufacture.jpg';
+import gamenight from '../assets/nowpage/gamenight.jpg';
+import hike from '../assets/nowpage/trail.jpeg';
+import hikeselfie from '../assets/nowpage/trailselfie.JPG';
+import traincam from '../assets/nowpage/traincam3am.jpg';
+
 
 # What I am Doing Now
 
@@ -15,23 +22,39 @@ This is a <Link href="https://sive.rs/now2">now page</Link>, and its purpose is 
 
 ***
 
-## April, 2026
+## May, 2026
 
-Spring break is over and the end of the year is closing in. I'm trying to balance finishing out schoolwork while still enjoying my time left in Madison! And enjoying all of the thunderstorms that have been foreshadowing the may flowers.
-
-<br></br>
-<Image src={thunder} alt="thunder" width={600} class="centered-image" />
-<br></br>
-
-The train cam project continues to advance (like a train along rails perhaps?) mostly with a lot of performance improvements. The Raspberry Pi 3 cpu didn't seem to have the guts to run the x11 window compositor managing both a transparent foot terminal rendering TUI and the vlc train video. So, experiments are ongoing using mpv, which allows for a IPC method to just change the video frame in memory before it gets rendered. So far, they have been successful and much faster...
+The time has finally come. I graduated UW Madison this month! This comes with too many feelings for a simple now page, but I can at least say a big thank you to all the friends (some pictured below), family, and teachers who got me through it.
 
 <br></br>
-<Image src={train} alt="PC" width={600} class="centered-image" />
+<Image src={grad} alt="grad pic" width={900} class="centered-image" />
 <br></br>
 
-Also, shout out to Nick for letting me gamble in the upl and open both a Sprigatito and a Noivern (my favorite pokemon). BANG!!
+But a lot of other things happened this month too. Having a deadline when my time as a student will officially end helped me get many things done.
+Of course, projects had to be wrapped up. I finished up the train cam (blog post coming soon), and learned about using CEC to remotely control the TV through the Pi + Tailscale.
 
 <br></br>
-<Image src={poke} alt="poke" width={600} class="centered-image" />
+<Image src={traincam} alt="train time" width={600} class="centered-image" />
+<br></br>
 
-Finally, work is still ongoing on manufacturing the 2040 keyloggers. I've got all the PCBs and parts now, so just soldering is left!
+I worked more on the 2040 keylogger manufacturing, roping some friends into the mix. We got many boards made, and left 2 for the cybersecurity club to hold onto indefinitely. I also spent some time onboarding the new leadership staff to the club and its server and website. Their ideas give me hope for another good few years of the club.
+
+<br></br>
+<MultiImage>
+<Image src={manufacturing} alt="building" width={600} class="centered-image" />
+<Image src={keyforclub} alt="donation for club" width={600} class="centered-image" />
+</MultiImage>
+<br></br>
+
+Then there were some game nights to be had with more friends before they left Madison for jobs or to visit family. Bittersweet.
+
+<br></br>
+<Image src={gamenight} alt="game night" width={600} class="centered-image" />
+<br></br>
+
+Personally, I left soon after to go on a week-long adventure in Appalachia with my girlfriend. This was a great adventure, and many things went wrong in the best kind of way. It was a fun graduation present and gave me lots of new stories to tell. Can you tell from the picture that our planned 3 days of backpacking gave us a good taste of adventure? I also got to read some good books on the trail and in the car. Maybe more on those later. But anyway, that's enough for now...
+
+<br></br>
+<Image src={hike} alt="hike pic" width={1000} class="centered-image" />
+<br></br>
+<Image src={hikeselfie} alt="selfie pic" width={1000} class="centered-image" />
