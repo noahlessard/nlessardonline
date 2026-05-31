@@ -19,32 +19,34 @@ import overlayadd from '../../assets/traincam/overlayadd.png';
 The UPL (Undergraduate Project Lab) is a lab for students to build things on the UW-Madison canvas. It used to be located in the old CS building, which was right next to the train tracks that run through Madison. 
 
 <br></br>
-<Image src={location} alt="upl location" width={250} class="centered-image" />
+<Image src={location} alt="upl location" width={500} class="centered-image" />
 <br></br>
 
 The old building had a lot of charm, appreciated by its many researchers. However, it has since been moved to the new Morgridge hall. This building is newer, larger, and better in some ways, but in other ways, it feels like we lost a lot of UPL history. Together with my friends <Link href="https://www.amoses.dev/">Andrew</Link> and <Link href="https://salm.dev/">Nico</Link>, we worked on some projects to help restore some charm to the UPL.
 
 <br></br>
-<Image src={uplexample} alt="upl example" width={450} class="centered-image" />
+<Image src={uplexample} alt="upl example" width={600} class="centered-image" />
 <br></br>
 
-I chose to recreate the immersive train experience that the old UPL had. This is the final product: a corner tv that plays train videos from 10am to 1am every school day, has bouncing cat pictures, overlays, and quotes, and also ramps up and down the volume every few hours to simulate trains passing. This runs on a single Raspberry Pi 3, and the way it all works includes some interesting technical solutions.
+I chose to recreate the "immersive" train experience that the old UPL had. Truthfully, this was just the very loud noise of the train going right by the old CS building. The UPL already had a spare TV and plently of raspberry pis laying around, so how can we use those to bring trains back to the UPL?
 
 <br></br>
-<Image src={traincamnew} alt="train final" width={500} class="centered-image" />
+<Image src={traincamnew} alt="train final" width={600} class="centered-image" />
 <br></br>
 
-The intial setup was just a VLC window that played a 12 hour, looping train video. Then, a bash script was added to ramp up and down the volume. However, I wanted there to be graphics on the screen to make it distinct to the UPL. I decided to use C++ for drawing these overlays, since I wanted it to be performant, and to give me a bit of pratice using the class features of C++. I had much more experience with C previous to this project, so this pushed me to get pratice doing a larger project in C++. 
+Above is the final product: a corner tv that plays train videos from 10am to 1am every school day, has bouncing cat pictures, overlays, and newswires, and also ramps up and down the volume every few hours to simulate trains passing. This runs on a quite old Raspberry Pi 3, and the way it all works includes some interesting technical solutions.
 
-My intial idea was to use NotCurses, a modern port of the no curses TUI library. I wanted to render TUI graphics on a transparent terminal that overlayed the MPV window. This was possible, and did have a cool aesethic, but there was a performance problem using this method.
+The intial setup was just a VLC window that played a 12 hour, looping train video. Then, a bash script was added to ramp up and down the volume using amixer. However, I wanted there to be graphics on the screen to make it distinct to the UPL. I decided to use C++ for drawing these overlays, since I wanted it to be performant, and to give me a bit of pratice using the class features of C++. I had much more experience with C previous to this project, so this pushed me to get pratice doing a larger project in C++. I believe experience is the best teacher in trying to learn about the ins and outs of a new language (or a new anything for that matter).
+
+My intial idea was to use <Link href="https://notcurses.com">NotCurses</Link>, a modern port of the no curses TUI library. I wanted to render TUI graphics on a transparent terminal that overlayed the MPV window. This was possible, and did have a cool aesethic, but there was a big performance problem using this method.
 
 <br></br>
-<Image src={traincamold} alt="train final" width={500} class="centered-image" />
+<Image src={traincamold} alt="train final" width={600} class="centered-image" />
 <br></br>
 
-While each application ran at an acceptable frame rate on their own, trying to overlay the two together brought the Pi to a crawl. I believe this was due to the Pi CPU not being fast enough to run the window compositor fast enough to switch between the 2 windows to render both at >30 FPS. I tried switching between X11 and wayland, reducing the window size and refresh rate, but nothing truely fixed the issue. It was time for a different approach.
+While each application ran at an acceptable frame rate on their own, trying to overlay the two together brought the Pi to a crawl. I believe this was due to the Pi CPU not being fast enough to allow the window compositor to switch between the 2 windows at a speed where they could both be >30 FPS. I tried switching between X11 and wayland, reducing the window size and refresh rate, but nothing truely fixed the issue. It was time for a different approach.
 
-While looking at possible solutions to the frame rate issues, I tried using MPV, a open source and lightweight video player that is more open and configurable than VLC. While looking through documentation, I came across this feature:
+While looking at possible solutions to the frame rate issues, I tried using MPV, a open source and lightweight video player that is more configurable than VLC. While looking through documentation, I came across this feature:
 
 <br></br>
 <Image src={jsonIPC} alt="json IPC" width={600} class="centered-image" />
@@ -60,10 +62,6 @@ This JSON api, exposed through MPV's IPC, lets us directly add bitmaps to the fr
 
 To generate the bitmap, we can use Cario to make .bgra files
 
-
-Using <Link href="https://en.wikipedia.org/wiki/Consumer_Electronics_Control">CEC</Link>
-
-
 Since I also wanted to target an ARM architecture with my Raspberry Pi, I wanted to learn about cross complication. This is where I build upon my previous knowledge and fondness of Docker, and used a container to do cross complilation. 
 
 This is done with a dockerfile that installs all of the needed gcc packages, C++ library headers, and linux config settings to get cross compliation working. Then, a toolchain cmake file for ARM is copied in, and cmake is run to build the app. Finally, the executable is just copied out, then the container is removed.
@@ -71,7 +69,10 @@ This is done with a dockerfile that installs all of the needed gcc packages, C++
 I really enjoyed this process, and I think it was a great use case for containers. I kept my dev enviroment clean and minimal, and it was easy to pick up developement on different computers. In my opinion, it was also much easier to recover from mistakes and interate with new features, since I could track my cmake configration in Git, though the Dockerfile.
 
 <br></br>
-<Image src={initpi} alt="train final" width={500} class="centered-image" />
+<Image src={initpi} alt="train final" width={600} class="centered-image" />
 <br></br>
 
-Last point about containers, but all of this also applied to setting up Clazy to do static analysis on my C++ code. Normally that is overkill, and hard to set up, but again with a container it wasn't as bad starting from a fresh ubuntu distribution. And it kept my main developement enviroment free from failed clutter that piles up from mistakes when learning how to use static analysis tooling.
+It was around this point that I decided the video part was done. I decided to instead shift to working on the audio and power managament side.
+
+
+Using <Link href="https://en.wikipedia.org/wiki/Consumer_Electronics_Control">CEC</Link>
