@@ -23,7 +23,7 @@ The old building had a lot of charm, appreciated by its many researchers. Howeve
 <Image src={uplexample} alt="upl example" width={600} class="centered-image" />
 <br></br>
 
-I chose to recreate the "immersive" train experience that the old UPL had. Truthfully, this was just the very loud noise of the train going right by the old CS building. The UPL already had a spare TV and plently of raspberry pis laying around, so how can we use those to bring trains back to the UPL?
+I chose to recreate the "immersive" train experience that the old UPL had. Truthfully, this was just the very loud noise of the train going right by the old CS building. The UPL already had a spare TV and plenty of raspberry pis lying around, so how can we use those to bring trains back to the UPL?
 
 <br></br>
 <Image src={traincamnew} alt="train final" width={600} class="centered-image" />
@@ -31,23 +31,23 @@ I chose to recreate the "immersive" train experience that the old UPL had. Truth
 
 Above is the final product: a corner tv that plays train videos from 10am to 1am every school day, has bouncing cat pictures, overlays, and newswires, and also ramps up and down the volume every few hours to simulate trains passing. This runs on a quite old Raspberry Pi 3, and the way it all works includes some interesting technical solutions.
 
-The intial setup was just a VLC window that played a 12 hour, looping train video. Then, a bash script was added to ramp up and down the volume using amixer. However, I wanted there to be graphics on the screen to make it distinct to the UPL. I decided to use C++ for drawing these overlays, since I wanted it to be performant, and to give me a bit of pratice using the class features of C++. I had much more experience with C previous to this project, so this pushed me to get pratice doing a larger project in C++. I believe experience is the best teacher in trying to learn about the ins and outs of a new language (or a new anything for that matter).
+The initial setup was just a VLC window that played a 12 hour, looping train video. Then, a bash script was added to ramp up and down the volume using amixer. However, I wanted there to be graphics on the screen to make it distinct to the UPL. I decided to use C++ for drawing these overlays, since I wanted it to be performant, and to give me a bit of practice using the class features of C++. I had much more experience with C previous to this project, so this pushed me to get practice doing a larger project in C++. I believe experience is the best teacher in trying to learn about the ins and outs of a new language (or a new anything for that matter).
 
-My intial idea was to use <Link href="https://notcurses.com">NotCurses</Link>, a modern port of the no curses TUI library. I wanted to render TUI graphics on a transparent terminal that overlayed the MPV window. This was possible, and did have a cool aesethic, but there was a big performance problem using this method.
+My initial idea was to use <Link href="https://notcurses.com">NotCurses</Link>, a modern port of the no curses TUI library. I wanted to render TUI graphics on a transparent terminal that overlayed the MPV window. This was possible, and did have a cool aesthetic, but there was a big performance problem using this method.
 
 <br></br>
 <Image src={traincamold} alt="train final" width={600} class="centered-image" />
 <br></br>
 
-While each application ran at an acceptable frame rate on their own, trying to overlay the two together brought the Pi to a crawl. I believe this was due to the Pi CPU not being fast enough to allow the window compositor to switch between the 2 windows at a speed where they could both be >30 FPS. I tried switching between X11 and wayland, reducing the window size and refresh rate, but nothing truely fixed the issue. It was time for a different approach.
+While each application ran at an acceptable frame rate on their own, trying to overlay the two together brought the Pi to a crawl. I believe this was due to the Pi CPU not being fast enough to allow the window compositor to switch between the 2 windows at a speed where they could both be >30 FPS. I tried switching between X11 and wayland, reducing the window size and refresh rate, but nothing truly fixed the issue. It was time for a different approach.
 
-While looking at possible solutions to the frame rate issues, I tried using MPV, a open source and lightweight video player that is more configurable than VLC. While looking through documentation, I came across this feature:
+While looking at possible solutions to the frame rate issues, I tried using MPV, an open source and lightweight video player that is more configurable than VLC. While looking through documentation, I came across this feature:
 
 <br></br>
 <Image src={jsonIPC} alt="json IPC" width={600} class="centered-image" />
 <br></br>
 
-This seemed promising, but this command releaved a whole new way of adding graphics to playing video.
+This seemed promising, but this command revealed a whole new way of adding graphics to playing video.
 
 <br></br>
 <Image src={overlayadd} alt="overlay command" width={600} class="centered-image" />
@@ -55,28 +55,28 @@ This seemed promising, but this command releaved a whole new way of adding graph
 
 This JSON api, exposed through MPV's IPC, lets us directly add bitmaps to the frame buffer as MPV renders them. This creates a very performant way to add graphics to the video as it plays.
 
-To generate the bitmap, we can use Cario to make .bgra files
+To generate the bitmap, we can use Cairo to make .bgra files
 
-Since I also wanted to target an ARM architecture with my Raspberry Pi, I wanted to learn about cross complication. This is where I build upon my previous knowledge and fondness of Podman (basically rootless Docker), and used a container to do cross complilation. 
+Since I also wanted to target an ARM architecture with my Raspberry Pi, I wanted to learn about cross compilation. This is where I build upon my previous knowledge and fondness of Podman (basically rootless Docker), and used a container to do cross compilation. 
 
-This is done with a dockerfile (run with podman) that installs all of the needed gcc packages, C++ library headers, and linux config settings to get cross compliation working. Then, a toolchain cmake file for ARM is copied in, and cmake is run to build the app. Finally, the executable is just copied out, then the container is removed.
+This is done with a dockerfile (run with podman) that installs all of the needed gcc packages, C++ library headers, and linux config settings to get cross compilation working. Then, a toolchain cmake file for ARM is copied in, and cmake is run to build the app. Finally, the executable is just copied out, then the container is removed.
 
-I really enjoyed this process, and I think it was a great use case for containers. I kept my dev enviroment clean and minimal without breaking other project's dependencies, and it was easy to pick up developement again on new machines. In my opinion, it was also much easier to recover from mistakes and interate with new features, since I could track my entire cmake system through Git with the dockerfile.
+I really enjoyed this process, and I think it was a great use case for containers. I kept my dev environment clean and minimal without breaking other project's dependencies, and it was easy to pick up development again on new machines. In my opinion, it was also much easier to recover from mistakes and iterate with new features, since I could track my entire cmake system through Git with the dockerfile.
 
 <br></br>
 <Image src={initpi} alt="train final" width={600} class="centered-image" />
 <br></br>
 
-It was around this point that I decided the video part was done. I decided to instead shift to working on the audio and power managament side.
-I wanted the Pi to be able to turn the TV on and off, but I was initally stuck on where to start. I was thinking of IoT power switches, or trying to wire in some relay...
+It was around this point that I decided the video part was done. I decided to instead shift to working on the audio and power management side.
+I wanted the Pi to be able to turn the TV on and off, but I was initially stuck on where to start. I was thinking of IoT power switches, or trying to wire in some relay...
 but then I remembered hearing somewhere that the HDMI spec includes some serial communication. After looking into a bit more, I found <Link href="https://en.wikipedia.org/wiki/Consumer_Electronics_Control">CEC</Link> and realized it would be a perfect solution.
 
 <br></br>
 <Image src={cec} alt="cec diagram" width={500} class="centered-image" />
 <br></br>
 
-By using a cec-client that someone had developed for linux, we can send simple commands over the single wire serial to the TV computer, and get it to do things. And because this single wire communication is designed to be super low power, it stays on all the time, even when the TV is turned off, meaning it can wake the TV back up as well.
+By using a cec-client that someone had developed for linux, we can send simple commands over the single wire serial to the TV's computer, and get it to do things. And because this single wire communication is designed to be super low power, it stays on all the time, even when the TV is turned off, meaning it can wake the TV back up as well.
 We also use CEC for the volume control. I was having some trouble getting amixer to reliably control the volume when switching in and out of the input when the TV turned on and off. Now, the input and volume are all fixed and the Pi just sends commands to the TV to turn it's volume up or down.
 
-Combined with a simple bash script for scheduling power / volume / startup, and a systemctl service to ensure that the managament script stayed running, this project was completed.
-I was satsifeid with the amount of practice I got with this project, how many new things I learned for something that was just going to be a way to use a spare TV, and how much people enjoyed it. I saw many people walking by the UPL who looked in for longer, watching and probably wondering what on earth was playing on the TV. I also heard from some UPLers who were in the space without me that they enjoyed the ambience of trains passing while they studied or programmed. Truely, the old experience will live on, if with some changes. 
+Combined with a simple bash script for scheduling power / volume / startup, and a systemctl service to ensure that the management script stayed running, this project was completed.
+I was satisfied with the amount of practice I got with this project, how many new things I learned for something that was just going to be a way to use a spare TV, and how much people enjoyed it. I saw many people walking by the UPL who looked in for longer, watching and probably wondering what on earth was playing on the TV. I also heard from some UPLers who were in the space without me that they enjoyed the ambience of trains passing while they studied or programmed. Truly, the old experience will live on, if with some changes. 
