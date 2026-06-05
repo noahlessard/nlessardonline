@@ -11,17 +11,12 @@ import initpi from '../../assets/traincam/initpi.jpg';
 import traincamold from '../../assets/traincam/traincamold.jpg';
 import jsonIPC from '../../assets/traincam/jsonIPC.png';
 import overlayadd from '../../assets/traincam/overlayadd.png';
-
+import cec from '../../assets/traincam/cec.jpg';
 
 # Trains, Planes, and Bitmap IPC + CEC
 ### Github Link: <Link href="https://github.com/noahlessard/upl_scroller">here</Link>
 
 The UPL (Undergraduate Project Lab) is a lab for students to build things on the UW-Madison canvas. It used to be located in the old CS building, which was right next to the train tracks that run through Madison. 
-
-<br></br>
-<Image src={location} alt="upl location" width={500} class="centered-image" />
-<br></br>
-
 The old building had a lot of charm, appreciated by its many researchers. However, it has since been moved to the new Morgridge hall. This building is newer, larger, and better in some ways, but in other ways, it feels like we lost a lot of UPL history. Together with my friends <Link href="https://www.amoses.dev/">Andrew</Link> and <Link href="https://salm.dev/">Nico</Link>, we worked on some projects to help restore some charm to the UPL.
 
 <br></br>
@@ -62,17 +57,26 @@ This JSON api, exposed through MPV's IPC, lets us directly add bitmaps to the fr
 
 To generate the bitmap, we can use Cario to make .bgra files
 
-Since I also wanted to target an ARM architecture with my Raspberry Pi, I wanted to learn about cross complication. This is where I build upon my previous knowledge and fondness of Docker, and used a container to do cross complilation. 
+Since I also wanted to target an ARM architecture with my Raspberry Pi, I wanted to learn about cross complication. This is where I build upon my previous knowledge and fondness of Podman (basically rootless Docker), and used a container to do cross complilation. 
 
-This is done with a dockerfile that installs all of the needed gcc packages, C++ library headers, and linux config settings to get cross compliation working. Then, a toolchain cmake file for ARM is copied in, and cmake is run to build the app. Finally, the executable is just copied out, then the container is removed.
+This is done with a dockerfile (run with podman) that installs all of the needed gcc packages, C++ library headers, and linux config settings to get cross compliation working. Then, a toolchain cmake file for ARM is copied in, and cmake is run to build the app. Finally, the executable is just copied out, then the container is removed.
 
-I really enjoyed this process, and I think it was a great use case for containers. I kept my dev enviroment clean and minimal, and it was easy to pick up developement on different computers. In my opinion, it was also much easier to recover from mistakes and interate with new features, since I could track my cmake configration in Git, though the Dockerfile.
+I really enjoyed this process, and I think it was a great use case for containers. I kept my dev enviroment clean and minimal without breaking other project's dependencies, and it was easy to pick up developement again on new machines. In my opinion, it was also much easier to recover from mistakes and interate with new features, since I could track my entire cmake system through Git with the dockerfile.
 
 <br></br>
 <Image src={initpi} alt="train final" width={600} class="centered-image" />
 <br></br>
 
 It was around this point that I decided the video part was done. I decided to instead shift to working on the audio and power managament side.
+I wanted the Pi to be able to turn the TV on and off, but I was initally stuck on where to start. I was thinking of IoT power switches, or trying to wire in some relay...
+but then I remembered hearing somewhere that the HDMI spec includes some serial communication. After looking into a bit more, I found <Link href="https://en.wikipedia.org/wiki/Consumer_Electronics_Control">CEC</Link> and realized it would be a perfect solution.
 
+<br></br>
+<Image src={cec} alt="cec diagram" width={500} class="centered-image" />
+<br></br>
 
-Using <Link href="https://en.wikipedia.org/wiki/Consumer_Electronics_Control">CEC</Link>
+By using a cec-client that someone had developed for linux, we can send simple commands over the single wire serial to the TV computer, and get it to do things. And because this single wire communication is designed to be super low power, it stays on all the time, even when the TV is turned off, meaning it can wake the TV back up as well.
+We also use CEC for the volume control. I was having some trouble getting amixer to reliably control the volume when switching in and out of the input when the TV turned on and off. Now, the input and volume are all fixed and the Pi just sends commands to the TV to turn it's volume up or down.
+
+Combined with a simple bash script for scheduling power / volume / startup, and a systemctl service to ensure that the managament script stayed running, this project was completed.
+I was satsifeid with the amount of practice I got with this project, how many new things I learned for something that was just going to be a way to use a spare TV, and how much people enjoyed it. I saw many people walking by the UPL who looked in for longer, watching and probably wondering what on earth was playing on the TV. I also heard from some UPLers who were in the space without me that they enjoyed the ambience of trains passing while they studied or programmed. Truely, the old experience will live on, if with some changes. 
