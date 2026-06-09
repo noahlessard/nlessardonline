@@ -13,8 +13,12 @@ import jsonIPC from '../../assets/traincam/jsonIPC.png';
 import overlayadd from '../../assets/traincam/overlayadd.png';
 import cec from '../../assets/traincam/cec.jpg';
 import overlaycpp from '../../assets/traincam/overlaycpp.png';
+import tweet from '../../assets/traincam/tweet.jpg';
+import claudestatus from '../../assets/traincam/claudestatus.jpg';
 
-# Trains, Planes, and Bitmap IPC + CEC
+
+
+# Trains, Planes, and Bitmap IPC
 ### Github Link: <Link href="https://github.com/noahlessard/upl_scroller">here</Link>
 
 The <Link href="https://upl.cs.wisc.edu/">UPL</Link> (Undergraduate Project Lab) is a lab for students to build things on the UW-Madison campus. It is also one of my favorite places on campus. It used to be located in the old CS building, which was right next to the train tracks that run through Madison. 
@@ -30,7 +34,7 @@ I chose to recreate the "immersive" train experience that the old UPL had. Truth
 <Image src={traincamnew} alt="train final" width={600} class="centered-image" />
 <br></br>
 
-Above is the final product: a corner tv that plays train videos from 10am to 1am every school day, has bouncing cat pictures, overlays, and newswires, and also ramps up and down the volume every few hours to simulate trains passing. This runs on a quite old Raspberry Pi 3, and the way it all works includes some interesting technical solutions.
+Above is the final result: a corner tv that plays train videos from 10am to 1am every school day, has bouncing cat pictures, overlays, and newswires, and also ramps up and down the volume every few hours to simulate trains passing. This runs on a quite old Raspberry Pi 3, and the way it all works includes some interesting technical solutions.
 
 The initial setup was just a VLC window that played a 12 hour, looping train video. Then, a bash script was added to ramp up and down the volume using amixer. However, I wanted there to be graphics on the screen to make it distinct to the UPL. I decided to use C++ for drawing these overlays, since I wanted it to be performant, and to give me a bit of practice using the class features of C++. I had much more experience with C previous to this project, so this pushed me to get practice doing a larger project in C++. I believe experience is the best teacher in trying to learn about the ins and outs of a new language (or a new anything for that matter).
 
@@ -68,9 +72,13 @@ This is done with a dockerfile that installs all of the needed gcc packages, C++
 
 I really enjoyed this process, and I think it was a great use case for containers. I kept my dev environment clean and minimal without breaking other project's dependencies, and it was easy to pick up development again on new machines. In my opinion, it was also much easier to recover from mistakes and iterate with new features, since I could track my entire cmake system through Git with the dockerfile.
 
+Oh, and I almost forgot about the Claude status dectector! I wanted to try and mess around with threads in this project, initially starting with some kind of sound effect, but I decided to do web requests instead. It was a common (<Link href="https://www.aakash.io/tech-chase/github-and-claude-are-down-three-out-of-four-days">very common</Link>) sight to walk into the UPL and hear someone joke that they couldn't work on anything, since Claude was down. There was also <Link href={tweet.src} target="_blank">this tweet</Link> that UPLers found entertaining. So, since the TV is always visible, I wanted to display Claude's current status. With the graphics rendering figured out, it was easy to add a seperate thread that fetches the Claude API status every minute. If it's down, we display the following for all passerbys to see. And of course, it still runs the sink.
+
+
 <br></br>
-<Image src={initpi} alt="train final" width={600} class="centered-image" />
+<Image src={claudestatus} alt="claude status" width={1000} class="centered-image" />
 <br></br>
+
 
 It was around this point that I decided the video part was done. I decided to instead shift to working on the audio and power management side.
 I wanted the Pi to be able to turn the TV on and off, but I was initially stuck on where to start. I was thinking of IoT power switches, or trying to wire in some relay...
