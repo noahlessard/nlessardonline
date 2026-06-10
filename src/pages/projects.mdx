@@ -6,10 +6,18 @@ import ProjectListing from '../components/projectlisting.astro';
 import rp2040listener from '../assets/RP2040Listener.PNG';
 import databender from '../assets/databender.png';
 import ir from '../assets/ir.jpg';
+import traincam from '../assets/traincam/scrolltext.jpg';
 
 # Projects
 
 This page is a mix of a personal blog and a projects list. The entries range from personal thoughts and learnings to more substantial resume material. It's here to help you learn something, find inspiration, or learn more about me and hear my opinions.
+
+<ProjectListing
+    title="Trains, Planes, and Bitmap IPC"
+    description="Creating efficent overlays in C++ for a UPL branded train entertainment system."
+    image={traincam}
+    link="/projects/traincam"
+/>
 
 <ProjectListing
     title="RP2040 Keystroke Sniffer"
