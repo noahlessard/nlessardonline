@@ -10,7 +10,15 @@ import Toast from '../components/toast.astro';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <!--<link rel="icon" type="image/x-icon" href="/favicon.ico">-->
+
+    <link rel="icon" href="flowers.png" />
+    <script>
+      const favicons = ['flowers.png', 'flowers2.png', 'flowers3.png', 'flowers4.png', 'flowers5.png'];
+      document.querySelector('link[rel="icon"]').href =
+        favicons[Math.floor(Math.random() * favicons.length)];
+    </script>
+
     <title>{title}</title>
 </head>
 <body>
