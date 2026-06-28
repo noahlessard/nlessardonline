@@ -6,22 +6,49 @@ import { Image } from 'astro:assets';
 import Link from '../../components/link.astro';
 import nametwentyfourty from '../../assets/2040/2040name.JPG';
 
-# Pi and Containers 
+# Pi and my opinions on AI  
 ### Github Link: <Link href="https://github.com/noahlessard/.pi">here</Link>
 
+It's been about 4 years since LLMs passed the turing test and became generally useful, and ever since no one has been able to turn away from talking about them, so I think it's about time I document my thoughts about them. I wrote this blog post not only as my opinion, but as potential inspiration or guidance for others to go about approaching AI yourself. Not that I am an expert or anything, just another perspective. I suppose its also worth noting I wrote this in the summer of 2026, and I will mostly be focusing on the current state of AI, not anything past or future. So, no lamenting the good old days or panicking about superintelligence hype.
 
-Talk about claude being used to free up space on mac, system files, cached update but still not auto or thinking by itself
+This post will be roughly split up into two sections: the first will be general ideas and opinions, and the second will be about practical uses and what tools I see value in.
 
-pi anti slop video
+So, what is AI like in 2026? My best simile is that using AI is like using a really powerful google search. It is a way of "looking up" information so powerful, that it doesn't feel like looking things up anymore, its more like asking the librarian yourself. However, I think this relationship hits some truth to a lot of underlying points about AI.
+
+For the most trivial and perhaps least relevant example, consider AI being used for "generative artwork." In my opinion, the "looking up" metaphor works here, because while you can look up any piece of artwork you want, it's silly to imagine that you "made" that artwork. To extend this point to something more utilized, I do believe that asking an AI a coding question, or to have it write code for you, is pretty similar to the olden days of looking up things on stackoverflow or google. Is it yours? No, not if you just copy and paste from stackoverflow. But if you copy a piece of code, modify it by hand, review it and understand it, adapt it to your vision of the software stored in your head, then that's different. I believe this kind of thinking extends the old world ideas of software "originality" into the new one fairly well. 
+
+Since AI has had the biggest impact on the programming field, I'll devote a bit more time to this specific subject. This metaphor helped me understand why I find some AI coding claims so ridiculous.
+
+The worst I've heard, that I can confirm to not be a joke or online trolling, is in my senior year, computer science capstone class. As part of this class, you are meant to learn agile, and some consultants come in to talk to you about the subject. However, in our year, one of these consultants went off on a tangent at the end, talking about how he had built their new task tracking software completely with AI and already published it to the app store. I will always remember him saying, to a class of about 60 senior computer science students, "I don't have to understand code anymore, I just release it." Yeah, the silence in the room after that was pretty loud.
+
+Lets examine this example under the idea that AI coding, is like an extreme version of looking up coding snippets from the internet. If you built an app and released, without ever actually looking at what you were copying and pasting, what kind of problems would you run into?
+
+What if you wanted to add new features? Well, you could copy and paste the previous snippets back into a search engine, and hope that someone had written code similar enough to what you pieced together that another snippet extension could be found. But this has an entropic feeling - at some point, your code becomes unique enough (when viewed all together), that stackoverflow isn't going to help you anymore at that high level. This example gets even worse if you consider a software breaking bug that is somewhat exclusive to your codebase - if you can't articulate what the problem is relating to, or where it's occurring, how is google supposed to help you?
+
+We can also consider the security problems that arise from this approach. How do you know those pieces of code you are copying from the internet are safe in any way? Well, by reading them... This problem has shown to be the bigger of the two, with packages every getting pwned by AI "lookups" that authors don't bother to check. The solution is to understand what snippets you are using, even if you didn't write it yourself. There is truly no excuse for that.
+
+AI, like google, has a lot of knowledge but isn't sure how it relates to the problem you have in your head. A problem that demonstrated this well, is when I used Claude to help clean up my Mac laptop that had run out of disk space. Most of it was taken up by "system data" that I had seemingly no control over. I had searched (in a search engine) on and off for months trying to figure out where this "system data" was hiding, and how I could remove it, to no avail. Mostly, I was just served ads about paid software that swore it could fix the problem.
+
+So, I turned to asking Claude about this. It can some example locations, but nothing was turning up. After it suggested looking in a directory for cached application data, I asked it if a cached software updated could be taking up the space. It said something along the lines of, "no, that is impossible for your situation." But after directly telling it to give me a command to show if there were cached updates, it did, and sure enough that was the problem. Then, Claude became very helpful again helping me run the commands needed to safely remove the old update data. While AI lookups gave me lots of great help in this process, they didn't do it perfectly because just asking google "why is my computer full" didn't really work either. You had to do some thinking yourself about what the problem could be, then look up ways to solve that potential problem and see if they worked or not. Again, AI takes that lookup to 11, but I think they are related in this way.
+
+This metaphor continues to extend its usefulness in other topics, by helping me understand how AI impacts learning. If you wanted to learn a calculus class, just looking up every answer to the questions obviously doesn't help you learn anything. Sure, with the AI lookup, you might think you are talking to something, which activates a different region of your brain that muddles what is really happening. But, in essence, you must be careful about what you are looking up. Looking up answers to your own questions, about how the integral is different than the Riemann sum, is a lookup that will help you learn something, but a lookup about the answer to each question will not. This tracks with the experience, and the experience of others, that I had in college with AI.
+
+Now, for the practical bits. Now that we have gone over how to use AI in general, what AI / AI tooling should we be using?
+
+I am an advocate for trying to use open-weight models as much as possible, but not necessarily exclusively. The reasons are this are two fold: most of the time, you don't need Opus-Fable-Ultrathink 99 to solve the simple compilation error you are trying to fix, and secondly it helps you not form a reliance on a temporary service. Lets dive into both of these a bit more.
+
+1
+
+2
+
+Ok, but what open weights models to use? I personally am only able to run Qwen3.6 variants, but I think this point really isn't as important. It depends too much on hardware (and timing) to recommend an overall solution. However, I don't think this is necessarily a bad thing. It gives people a choice on how much they want to learn about AI before they use it. Casual users can download ollama, and just use whatever is recommended, but pro users inherently have to know more about the AI they are using if they want to get better information from it. Setting up kvcaches, memory offloading, compaction all have to be learned if you want to really get the most out of open-weight AI models.
+
+In terms of actually interacting with these models, llama.cpp (and maybe ollama?) provide sleek web ui interface built in, so I just recommend them for that. For coding harness, pi is a great tool, that has a <Link href="https://www.youtube.com/watch?v=Dli5slNaJu0">fairly level-headed team behind it</Link>, which gives me trust that it wouldn't compromise my computer. It also has the most customization I've seen in a harness tool, so bonus points there for the same reasons above. You know exactly what your agent can and cannot do on your computer, because you set it up that way.
+
+I also think that using a coding agent is pretty useless unless you have a good handle on version control. I think using AI actually motivated me to learn more about git, and commit more of the cli commands to memory, so in that way, AI did help me learn more. Containers are also great for keeping AI's sandboxed to certain parts of your computer, and also giving them repeatable environments to start or restore from. I also expanded my knowledge in this area after using AI for coding. 
 
 books? but also finding books?
 
 skills, prompt injection, sandboxing, git and containers, piIgnore? kvcache, moe, optimizations
 
 https://open.substack.com/pub/andresc/p/why-i-find-it-hard-to-learn-with
-
-but all of this also applied to setting up Clazy to do static analysis on my C++ code. Normally that is overkill, and hard to set up, but again with a container it wasn't as bad starting from a fresh ubuntu distribution. And it kept my main developement enviroment free from failed clutter that piles up from mistakes when learning how to use static analysis tooling.
-
-talk about "bad things" of ai, esp supply chain vulns and credit
-
-also just read the code!! talk about software capstone guy saying you don't have to read code anymore or understand anything
