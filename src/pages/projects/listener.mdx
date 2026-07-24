@@ -9,11 +9,12 @@ import assembledPCB from '../../assets/2040/assembled.jpg';
 import PIO from '../../assets/2040/piodiagram.JPG'
 import wearleveling from '../../assets/2040/wearleveling.jpg';
 import ranchorelaxo from '../../assets/2040/RanchoRelaxo.png';
+import presentation from '../../assets/2040/USB_Keylogger_Presentation.pdf';
 
 # RP2040 Keystroke Sniffer 
 ### Github Link: <Link href="https://github.com/noahlessard/2040Listener">here</Link>
 
-After finishing my PCB design classes at UW-Madison, I wanted to keep doing PCB design on my own. It had also been a while since I did a cybersecurity project, so why not try and build a stealthy keylogger? These kinds of devices are built for a physical pentesting use case: an attacker would sneak this flash drive sized device behind a desktop PC, intercepting and logging USB signals sent between the keyboard and the PC. Then, the attacker either picks up the keylogger at a later date, or uses some wireless scheme to exfiltrate the keystroke data. Assuming the attacker has physical access, this is a pretty effective strategy: no keylogging program is actually running on the computer, so most antivirus programs won't be able to see anything different than a USB keyboard plugged into the computer. There are certainly ways to counter against it, but first let's go over how we can build our own.
+After finishing my PCB design classes at UW-Madison, I wanted to keep doing PCB design on my own. It had also been a while since I did a cybersecurity project, so why not try and build a stealthy keylogger? It could even make for a great <Link href="https://csec.cs.wisc.edu/">UW Cybersecurity Club</Link> meeting that I could <Link href={presentation}>present</Link>. These kinds of devices are built for a physical pentesting use case: an attacker would sneak this flash drive sized device behind a desktop PC, intercepting and logging USB signals sent between the keyboard and the PC. Then, the attacker either picks up the keylogger at a later date, or uses some wireless scheme to exfiltrate the keystroke data. Assuming the attacker has physical access, this is a pretty effective strategy: no keylogging program is actually running on the computer, so most antivirus programs won't be able to see anything different than a USB keyboard plugged into the computer. There are certainly ways to counter against it, but first let's go over how we can build our own.
 
 <br></br>
 <Image src={assembledPCB} alt="PCB Assembled!" width={800} class="centered-image" />
@@ -58,3 +59,5 @@ The PCB I ended up building chose mostly standard Pico parts, except for a small
 <br></br>
 
 In terms of defending against this type of device, there are some possible countermeasures I can think of. The first is having good physical security: not allowing unauthorized access to computer peripherals, or always having peripheral connections in plain sight (and checked regularly). Another way would be to only allow certain USB devices to connect to managed computers, unless an attacker can perfectly replicate the HID descriptors of the keyboard that is authorized, the device won't be able to relay the keystrokes to the computer, and the device would be noticed quickly. Another interesting thing would be trying to detect if there was an abnormally regular amount of time between each keystroke, although I don't know if this could even be detected since there is very low latency with the Pico. But above all, people just being aware of this and knowing to look for hardware they don't recognize being plugged into their computer is the best solution. 
+
+**PS**: If you finished reading this and are interested in trying one of these out for yourself, send me an email! I'm looking for feedback on the design (and any potential errors that might come with repeated use). Plus I had a few spare parts left over anyways and think I can ship these pretty cheaply since they are so small and light. 
