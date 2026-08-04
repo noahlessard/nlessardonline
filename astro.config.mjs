@@ -9,5 +9,6 @@ export default defineConfig({
   integrations: [mdx()],
   build: {concurrency: 1},
   outDir: './dist',
-  publicDir: './public'
+  publicDir: './public',
+  site: 'https://nlessard.online'
 });

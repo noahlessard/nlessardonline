@@ -2,26 +2,25 @@
 import { Image } from 'astro:assets';
 import Link from '../components/link.astro';
 interface Props {
-    title: string;
     image: ImageMetadata;
-    description: string;
     link: string;
 }
-const { title, image, description, link } = Astro.props;
+const { image, link } = Astro.props;
+const project = await import(`../pages/projects/${link}.mdx`);
 ---
 <div class="project-listing">
-    <Link href={link}>
+    <Link href={`projects/${link}`}>
     <Image 
         src={image}
-        alt={title} 
+        alt={project.frontmatter.title} 
         class="project-cover"
         width={400}
         loading="eager"
     />
     <div class="project-info">
-        <h3>{title}</h3>
+        <h3>{project.frontmatter.title}</h3>
         <p class="description">
-            {description ? description : <slot />}
+            {project.frontmatter.description ? project.frontmatter.description : <slot />}
         </p>
     </div>
     </Link>
