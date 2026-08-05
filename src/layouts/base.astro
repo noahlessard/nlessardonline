@@ -7,6 +7,9 @@ const pageTitle = slug ? slug.replace(/%20/g, " ") : "home";
 
 import Link from '../components/link.astro'
 import Toast from '../components/toast.astro';
+import DateGate from '../components/dategate.astro'
+import Halloween from '../assets/halloween.gif';
+
 ---
 
 <!DOCTYPE html>
@@ -33,6 +36,7 @@ import Toast from '../components/toast.astro';
             <Link href="/now">Now</Link>
             <Link href="/books">Books</Link>
         </nav>
+        <DateGate src={Halloween.src} alt="pumpkins! happy halloween" />
     </header>
     <main>
         <Toast />

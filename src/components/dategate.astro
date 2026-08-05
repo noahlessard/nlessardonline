@@ -1,0 +1,20 @@
+---
+const { src, alt = '' } = Astro.props;
+---
+
+<div id="container"></div>
+
+<script define:vars={{ src, alt }}>
+  const today = new Date();
+  // only show the pumpkins on all hallows eve
+  const isTarget = (today.getMonth() + 1) === 10 && today.getDate() === 31;
+
+  if (isTarget) {
+    const container = document.getElementById('container');
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = alt;
+    img.style = "height: 50px; width: auto; display: block; margin: 0 auto;";
+    container.appendChild(img);
+  }
+</script>
