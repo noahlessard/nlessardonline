@@ -1,6 +1,7 @@
 ---
 layout: ../layouts/base.astro
 ---
+import Link from '../components/link.astro';
 import ProjectListing from '../components/projectlisting.astro';
 import rp2040listener from '../assets/RP2040Listener.PNG';
 import databender from '../assets/databender.png';
@@ -9,7 +10,7 @@ import traincam from '../assets/traincam/scrolltext.jpg';
 
 # Projects
 
-This page is a mix of a personal blog and a projects list. The entries range from personal thoughts and learnings to more substantial resume material. It's here to help you learn something, find inspiration, or learn more about me and hear my opinions.
+This page is a mix of a personal blog and a projects list. The entries range from personal thoughts and learnings to more substantial resume material. It's here to help you learn something, find inspiration, or learn more about me and hear my opinions. RSS feed <Link href="https://nlessard.online/rss.xml">here.</Link>
 
 <ProjectListing
     image={traincam}
