@@ -9,7 +9,7 @@ const { image, link } = Astro.props;
 const project = await import(`../pages/projects/${link}.mdx`);
 ---
 <div class="project-listing">
-    <Link href={`projects/${link}`}>
+    <Link href={`/projects/${link}`}>
     <Image 
         src={image}
         alt={project.frontmatter.title} 
