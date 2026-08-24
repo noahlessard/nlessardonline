@@ -1,0 +1,61 @@
+---
+layout: ../layouts/base.astro
+---
+
+export const buttonModules = import.meta.glob('../assets/buttons/*', { eager: true });
+export const buttons = Object.values(buttonModules).map((m) => m.default);
+
+export function chunk(arr, size) {
+  const out = [];
+  for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
+  return out;
+}
+
+export const buttonGroups = chunk(buttons, 5);
+
+import Link from '../components/link.astro';
+import { Image } from 'astro:assets';
+import MultiImage from '../components/multiimage.astro';
+
+import chill from '../assets/buttons/chill_pill.gif';
+import cyberrot from '../assets/buttons/cyberrot.gif';
+import neocities_vaporwave from '../assets/buttons/neocities_vaporwave.png';
+import ngmibutton from '../assets/buttons/ngmibutton.gif';
+import pngbar from '../assets/buttons/pngbar.gif';
+
+
+## Friends' websites
+* Nico: <Link href="https://salm.dev">salm.dev</Link>
+* Andrew: <Link href="https://www.amoses.dev/">amoses.dev</Link>
+* Ben: <Link href="https://ben.enterprises/">ben.enterprises</Link>
+* Paul: <Link href="https://paulchu.ng/">paulchu.ng</Link>
+
+
+## Just cool websites
+* Origin of now pages: <Link href="https://sive.rs/now2">sive.rs/now2</Link>
+* Undergraduate Projects Lab: <Link href="https://upl.cs.wisc.edu/">upl.cs.wisc.edu</Link>
+* Cybersecurity UW: <Link href="hhttps://csec.cs.wisc.edu/">csec.cs.wisc.edu</Link>
+* Nick Winans: <Link href="https://nick.winans.io/">nick.winans.io</Link>
+* Phoenix Kahlo: <Link href="https://phoenixkahlo.com/">phoenixkahlo.com</Link>
+* Exodrifter: <Link href="https://exodrifter.space/">exodrifter.space</Link>
+* Office Hours: <Link href="https://www.officehours.lol/">officehours.lol</Link>
+* Dynamicland: <Link href="https://dynamicland.org/">dynamicland.org</Link>
+* Andy Kong: <Link href="https://andykong.org/">andykong.org</Link>
+
+
+## My favorite talks
+* Ben's Lightning Talk: <Link href="https://www.youtube.com/watch?v=HuUZ3_ARiVg">Against Software Alchemy</Link>
+* Mario's Pi Talk: <Link href="https://www.youtube.com/watch?v=RjfbvDXpFls">Building pi in a World of Slop</Link>
+* Acerola's GodotCon Boston 2026 Talk: <Link href="https://www.youtube.com/watch?v=DG7dp65YgXY">Video Game Victims of Cinematography</Link>
+* Gabe Newell's 2013 Talk: <Link href="https://www.youtube.com/watch?v=Td_PGkfIdIQ">On Productivity, Economics, Political Institutions, and the Future of Corporations</Link>
+* Ted Nelson & Project Xanadu: <Link href="https://www.youtube.com/watch?v=En_2T7KH6RA">Ted Nelson demonstrates Xanadu Space</Link>
+
+
+## 88x31 collection
+{buttonGroups.map((group, i) => (
+  <MultiImage key={i}>
+    {group.map((src, j) => (
+      <Image src={src} alt="button" width={100} class="centered-image" key={j} />
+    ))}
+  </MultiImage>
+))}
